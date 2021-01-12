@@ -97,14 +97,7 @@ def add_user():
 
 @app.route('/items/upload', methods=["POST"])
 def get_add_item_page():
-    name =  request.form.get("name")
-    description = request.form.get("Description")
-    img_url = request.form.get("img_url")
-    email = request.cookies.get("user_email")
-    item.insert(name, description,img_url, email)
-    response = make_response(redirect('/index.html'))
-    return response
-
+    pass
 
 
 @app.route('/items')#query_str => item_id, uploaded_items, myorder
@@ -113,11 +106,27 @@ def get_items_by_query_page():
 
 @app.route('/items', methods = ["POST"])
 def add_item():
-    pass
+    name =  request.form.get("name")
+    description = request.form.get("Description")
+    img_url = request.form.get("img_url")
+    email = request.cookies.get("user_email")
+    item.insert(name, description,img_url, email)
 
-@app.route('/items/buy/<item_id>', methods = ["PATCH"])
+    response = make_response(redirect('/index.html'))
+    response.set_cookie("user_email", email)
+    return response
+
+@app.route('/items/buy/<item_id>', methods = ["POST"])
 def buy_item(item_id):
-    pass
+    user_email = request.cookies.get("user_email")
+
+    if user_email:
+        item.buy(item_id, user_email)
+        response = make_response(redirect("/index.html"))
+        response.set_cookie("user_email", user_email)
+        return response
+    else:
+        return json.dumps({"error": "Please log in or sign up"}), 400
 
 @app.route('/communities')
 def get_community_details_page():

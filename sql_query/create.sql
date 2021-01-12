@@ -36,4 +36,7 @@ USE community_db;
 
 -- drop TABLE item
 
-select * from item
+UPDATE item 
+SET is_available = 1, ordered_by_mail = null;
+
+select * from item;

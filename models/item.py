@@ -15,3 +15,12 @@ def insert(name, description,img_path, owners_mail):
     if succ:
         return True
     return False
+
+def buy(item_id, user_email):
+    query = """UPDATE item 
+                SET is_available = 0, ordered_by_mail = '{}'
+                WHERE id = {} """.format(user_email, item_id)
+    succ = update_db_by_query(query)
+    if succ:
+        return True
+    return False
