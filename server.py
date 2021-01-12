@@ -19,8 +19,9 @@ def signup():
 def get_main_page(page):
     user_email = request.cookies.get("user_email")
     if user_email:
-        response = make_response(redirect(page))
+        response = make_response(render_template(page))
         response.set_cookie("user_email", user_email)
+        return response
     return render_template(page)
  
 
@@ -82,9 +83,17 @@ def add_user():
     response.set_cookie("user_email", email)
     return response
 
-@app.route('/items/upload')
+@app.route('/items/upload', methods=["POST"])
 def get_add_item_page():
-    pass
+    name =  request.form.get("name")
+    description = request.form.get("Description")
+    img_url = request.form.get("img_url")
+    email = request.cookies.get("user_email")
+    item.insert(name, description,img_url, email)
+    response = make_response(redirect('/index.html'))
+    return response
+
+
 
 @app.route('/items')#query_str => item_id, uploaded_items, myorder
 def get_items_by_query_page():

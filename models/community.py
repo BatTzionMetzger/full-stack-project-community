@@ -20,3 +20,4 @@ def is_exist(id_, password):
     if res[0].get('count(*)') > 0:
         return True
     return False
+insert("a","1", "aa@gmail.com", None)
