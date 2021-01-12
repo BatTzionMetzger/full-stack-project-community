@@ -36,4 +36,4 @@ USE community_db;
 
 -- drop TABLE item
 
-select * from user
+select * from community

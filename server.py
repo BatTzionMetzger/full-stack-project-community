@@ -28,15 +28,20 @@ def get_main_page(page):
 @app.route('/communities/signup')
 def get_comm_signup_page():
     user_email = request.cookies.get("user_email")
-    print(user_email)
+    if user_email:
+        response = make_response(redirect("/addcommunity.html"))
+        response.set_cookie("user_email", user_email)
+        return response
+    return redirect('/addcommunity.html') 
 
 @app.route('/communities', methods = ["POST"])
 def add_community():
-    req_details = request.get_json()
-    name = req_details.get("name")
-    psd = req_details.get("password")
-    admin_mail = req_details.get("admin_mail")
-    img_path = req_details.get("img_path")
+    user_email = request.cookies.get("user_email")
+
+    name =  request.form.get("name")
+    psd =  request.form.get("password")
+    admin_mail =  request.form.get("admin_email")
+    img_path =  request.form.get("img_path")
     if name and psd and admin_mail:
         if not is_valid_email(admin_mail):
             return json.dumps({"error": "The email is not valid"}), 400
@@ -44,7 +49,11 @@ def add_community():
     else:
         return json.dumps({"error": "All field- name, psd and admin_mail are mandatory"}), 400
     
-    return json.dumps({"created": name}), 201
+    if user_email:
+        response = make_response(render_template("index.html"))
+        response.set_cookie("user_email", user_email)
+        return response
+    return render_template("index.html")
 
 
 @app.route('/users/signup')
