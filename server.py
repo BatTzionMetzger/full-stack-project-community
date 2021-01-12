@@ -1,4 +1,4 @@
-from flask import Flask, Response, request,render_template
+from flask import Flask, Response, request,render_template, make_response, redirect
 import json
 import requests
 from string_utils import is_valid_email, is_valid_phone
@@ -17,14 +17,18 @@ def signup():
 
 @app.route('/<page>')
 def get_main_page(page):
+    user_email = request.cookies.get("user_email")
+    if user_email:
+        response = make_response(redirect(page))
+        response.set_cookie("user_email", user_email)
     return render_template(page)
  
 
 
 @app.route('/communities/signup')
-
 def get_comm_signup_page():
-    pass
+    user_email = request.cookies.get("user_email")
+    print(user_email)
 
 @app.route('/communities', methods = ["POST"])
 def add_community():
@@ -39,7 +43,7 @@ def add_community():
         community.insert(name, psd, admin_mail, img_path)
     else:
         return json.dumps({"error": "All field- name, psd and admin_mail are mandatory"}), 400
-
+    
     return json.dumps({"created": name}), 201
 
 
@@ -53,13 +57,12 @@ def get_user_login_page():
 
 @app.route('/users', methods = ["POST"])
 def add_user():
-    req_details = request.get_json()
-    email = req_details.get("email")
-    psd = req_details.get("password")
-    name = req_details.get("name")
-    community_id = req_details.get("community_id")
-    community_psd = req_details.get("community_psd")
-    phone = req_details.get("phone")
+    email =  request.form.get("email")
+    psd = request.form.get("password")
+    name = request.form.get("name")
+    community_id = request.form.get("community")
+    community_psd = request.form.get("community_password")
+    phone = request.form.get("phone")
     if email and psd and name and community_id and community_psd:
         if not is_valid_email(email):
             return json.dumps({"error": "The email is not valid"}), 400
@@ -73,8 +76,11 @@ def add_user():
            return json.dumps({"error": "The community and psd not match"}), 400 
     else:
         return json.dumps({"error": "All field- name, psd and admin_mail are mandatory"}), 400
+    
 
-    return json.dumps({"created": name}), 201
+    response = make_response(redirect('/index.html'))
+    response.set_cookie("user_email", email)
+    return response
 
 @app.route('/items/upload')
 def get_add_item_page():
