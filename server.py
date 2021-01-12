@@ -17,12 +17,15 @@ def signup():
 
 @app.route('/<page>')
 def get_main_page(page):
-    user_email = request.cookies.get("user_email")
+    # user_email = request.cookies.get("user_email")
+    user_email ="77@gmail.com"
+    user_items_list = {}
     if user_email:
-        response = make_response(render_template(page))
+        user_items_list = user.get_item_by_email(user_email)
+        response = make_response(render_template(page, user_items = user_items_list))
         response.set_cookie("user_email", user_email)
         return response
-    return render_template(page)
+    return render_template(page, user_items = user_items_list)
  
 
 
