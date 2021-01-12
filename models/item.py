@@ -1,1 +1,1 @@
-from db_queries import *
+from models.db_queries import *
