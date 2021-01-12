@@ -1,13 +1,14 @@
-from flask import Flask, Response, request
+from flask import Flask, Response, request,render_template
 import json
 import requests
 
-app = Flask(__name__, static_url_path='', static_folder='static', template_folder='templates')
+app = Flask(__name__, static_url_path='', static_folder='static', template_folder='template')
 
 
 @app.route('/index')
 def get_main_page():
-    pass
+    return render_template("index.html")
+ 
 
 @app.route('/communities/signup')
 def get_comm_signup_page():
