@@ -166,11 +166,13 @@
 				<div class="col-sm-4">
 					<div class="signup-form"><!--sign up form-->
 						<h2>New User Signup!</h2>
-						<form action="#">
-							<input type="text" placeholder="Name"/>
-							<input type="email" placeholder="Email Address"/>
-							<input type="password" placeholder="Password"/>
-							<input type ="text" placeholder = "community"/>
+						<form action="/signup" method="post">
+							<input type="text" placeholder="Name" name="name"/>
+							<input type="email" placeholder="Email Address" name="email"/>
+							<input type="password" placeholder="Password" name="password"/>
+							<input type ="text" placeholder = "community" name="community"/>
+							<input type ="text" placeholder = "community password" name = "community password"/>
+							<input type ="number" placeholder = "phone" name="phone"/>
 							<button type="submit" class="btn btn-default">Signup</button>
 						</form>
 					</div><!--/sign up form-->
@@ -337,7 +339,8 @@
 		</div>
 		
 	</footer><!--/Footer-->
-	
+
+	  
 
   
     <script src="js/jquery.js"></script>

@@ -4,13 +4,23 @@ import requests
 
 app = Flask(__name__, static_url_path='', static_folder='static', template_folder='template')
 
+@app.route('/signup', methods = ['POST'])
+def signup():
+    print("insigup")
+    email = request.form['email']
+    print("The email address is '" + email + "'")
+    return render_template("login.html")
 
-@app.route('/index')
-def get_main_page():
-    return render_template("index.html")
+
+
+@app.route('/<page>')
+def get_main_page(page):
+    return render_template(page)
  
 
+
 @app.route('/communities/signup')
+
 def get_comm_signup_page():
     pass
 
