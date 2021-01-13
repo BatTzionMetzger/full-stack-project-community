@@ -367,11 +367,11 @@
 									<div class="product-image-wrapper">
 										<div class="single-products">
 												<div class="productinfo text-center">
-													{% if  item.get("img_path") != 'None' %}
-													<img src="{{item.get('img_path')}}" alt="" />
-													{% else%}
-													<img src="images/home/we.PNG" alt="" />
-													{% endif%}
+													<!-- {% if  item.get("img_path") != 'None' %} -->
+													<img src="images/uploads/{{item.get('img_path')}}" alt="" />
+													<!-- {% else%} -->
+													<!-- <img src="images/home/we.PNG" alt="" /> -->
+													<!-- {% endif%} -->
 													<h2>{{item.get("name")}}</h2>
 													<p>{{item.get("description")}}</p>
 													<form action="/items/look_at/{{item.get('id')}}" method="GET" target="_blank">
@@ -742,7 +742,7 @@
 														<div class="product-image-wrapper">
 															<div class="single-products">
 																<div class="productinfo text-center">
-																	<img src="images/home/recommend1.jpg" alt="" />
+																	<img src="images/uploads/{{user_owner_products[3 + i*3 + j].get('img_path')}}" alt="" />
 																	<h2>{{user_owner_products[3 + i*3 + j].get("name")}}</h2>
 																	<p>{{user_owner_products[3 + i*3 + j].get("description")}}</p>
 																	<form action={{ "/items/buy/"}}{{(user_owner_products[3 + i*3 + j].get("id")) }} method="POST">

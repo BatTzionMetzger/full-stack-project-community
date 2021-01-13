@@ -45,3 +45,9 @@ def get_item_details(item_id):
     phone_str = "0" + str(phone_as_int)
     item_["phone"] = phone_str
     return item_
+
+def get_size_item():
+    query = "SELECT COUNT(*) FROM item"
+    print(query,type(query),select_query(query)[0]["COUNT(*)"])
+    return  int(select_query(query)[0]["COUNT(*)"])
+

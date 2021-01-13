@@ -4,7 +4,30 @@ import requests
 from string_utils import is_valid_email, is_valid_phone
 from models import community, item, user
 
+
+import imghdr
+import os
+from flask import Flask, render_template, request, redirect, url_for, abort, \
+    send_from_directory
+from werkzeug.utils import secure_filename
+
+
+def validate_image(stream):
+    header = stream.read(512)  # 512 bytes should be enough for a header check
+    stream.seek(0)  # reset stream pointer
+    format = imghdr.what(None, header)
+    if not format:
+        return None
+    return '.' + (format if format != 'jpeg' else 'jpg')
+
+
 app = Flask(__name__, static_url_path='', static_folder='static', template_folder='template')
+
+
+app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
+app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.gif']
+app.config['UPLOAD_PATH'] = 'C://Users//sara leah//Desktop//Excellenteam//course//python//web community//static//images//uploads'
+
 
 @app.route('/signup', methods = ['POST'])
 def signup():
@@ -36,8 +59,6 @@ def get_main_page(page):
             user_items_list=item.get_item_by_owber(owner_mail)
         else:
             user_items_list = user.get_item_by_email(user_email)
-        # if item_dict["name"]:
-            
         user_ownered_product = user.get_user_ownered_products(user_email)
         user_owned_len = len(user_ownered_product)
         first_item_len = user_owned_len if user_owned_len <= 3 else 3
@@ -164,6 +185,7 @@ def get_items_by_query_page():
 
 @app.route('/items', methods = ["POST"])
 def add_item():
+    print("hiii1")
     name =  request.form.get("name")
     description = request.form.get("Description")
     img_url = request.form.get("img_url")
@@ -172,6 +194,27 @@ def add_item():
         return render_template("/add_product.html", add_item_error = "The name and description are required")
 
     item.insert(name, description,img_url, email)
+    #item.insert(name, description,img_url, email)
+
+    
+    uploaded_file = request.files['file']
+    #filename = secure_filename(uploaded_file.filename)
+    img_name= str(item.get_size_item()+1)+".jpg"
+    # if filename != '':
+    #     file_ext = os.path.splitext(filename)[1]
+    #     if file_ext not in app.config['UPLOAD_EXTENSIONS'] or \
+    #             file_ext != validate_image(uploaded_file.stream):
+    #         abort(400)
+    #    uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'],str(item.get_size_item()+1)+".jpg"))
+
+    #img_url = os.path.join(app.config['UPLOAD_PATH'])
+
+    #print("img_url",img_url,len(img_url))
+
+    uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], img_name))
+
+    
+    item.insert(name, description,img_name, email)
 
     response = make_response(redirect('/index.html'))
     response.set_cookie("user_email", email)
@@ -194,7 +237,11 @@ def get_community_details_page():
     pass
 
 
-
+@app.route('/logout')
+def logout():
+    response = make_response(redirect("/index.html"))
+    response.set_cookie("user_email", "", expires=0)
+    return response
 
 
 if __name__ == '__main__':

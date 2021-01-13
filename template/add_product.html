@@ -152,11 +152,11 @@
 				</div> -->
 				<div class="col-sm-4">
 					<div class="signup-form"><!--sign up form-->
-						<h2>Product Detalis:</h2>
-						<form action="/items" method="post">
+						<h2>Enter Item Details</h2>
+						<form action="/items" method="post" enctype="multipart/form-data">
                             <input type="text" placeholder="Name" name="name"/>
                             <input type="text" placeholder="Description" name="Description"/>
-                            <input type="text" placeholder="img_path" name="img_path"/>
+                            <input type="file" name="file">
 							<button type="submit" class="btn btn-default">Add</button>
 							<span id="errors_login" style="color: red;">{{ add_item_error}}</span>
 						</form>
