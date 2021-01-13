@@ -48,7 +48,7 @@ def get_main_page(page):
         response.set_cookie("user_email", user_email)
         response.set_cookie("owner_item",'',expires=0)
         return response
-    return render_template(page, user_items = user_items_list)
+    return render_template(page, user_items = user_items_list, login_error ="", sign_up_error = "")
  
 
 
@@ -93,10 +93,10 @@ def add_community():
     img_path =  request.form.get("img_path")
     if name and psd and admin_mail:
         if not is_valid_email(admin_mail):
-            return json.dumps({"error": "The email is not valid"}), 400
+            return render_template("/addcommunity.html", add_comm_error =  "\nThe email is not valid")
         community.insert(name, psd, admin_mail, img_path)
     else:
-        return json.dumps({"error": "All field- name, psd and admin_mail are mandatory"}), 400
+        return render_template("/addcommunity.html", add_comm_error =  "\nAll field- name, password and admin email are mandatories")
     
     if user_email:
         response = make_response(render_template("index.html"))
@@ -117,10 +117,11 @@ def get_user_login_page():
 def login():
     email = request.args.get('email')
     password = request.args.get('password')
-    print("The email address is '" + email + "'")
+    if not email or not password:
+        return render_template("/login.html", login_error =  "\nEither password or email are incorrect.", sign_up_error = "" )
     is_user = user.check_if_user_exists_by_email_and_password(email, password)
     if not is_user:
-        return json.dumps({"error": "Either password or email are incorrect."}), 400
+        return render_template("/login.html", login_error =  "\nPassword and Email are not match", sign_up_error = "")
     response = make_response(redirect("/index.html"))
     response.set_cookie("user_email", email)
     return response
@@ -135,17 +136,17 @@ def add_user():
     phone = request.form.get("phone")
     if email and psd and name and community_id and community_psd:
         if not is_valid_email(email):
-            return json.dumps({"error": "The email is not valid"}), 400
+            return render_template("/login.html", login_error =  "", sign_up_error = "\nThe email is not valid")
         if not is_valid_phone(phone):
-            return json.dumps({"error": "The phone number is not valid"}), 400
+            return render_template("/login.html", login_error =  "", sign_up_error = "\nThe phone is not valid")
         if user.is_exist(email):
-            return json.dumps({"error": "The user is aleady exist"}), 400
+            return render_template("/login.html", login_error =  "", sign_up_error = "\nThe user is aleady exist")
         if community.is_exist(community_id, community_psd):
             user.insert(email, psd, name, community_id, int(phone))
         else:
-           return json.dumps({"error": "The community and psd not match"}), 400 
+            return render_template("/login.html", login_error =  "", sign_up_error = "\nThe community and psd not match")
     else:
-        return json.dumps({"error": "All field- name, psd and admin_mail are mandatory"}), 400
+        return render_template("/login.html", login_error =  "", sign_up_error = "\nAll field- name, psd and admin_mail are mandatory")
     
 
     response = make_response(redirect('/index.html'))
@@ -167,6 +168,9 @@ def add_item():
     description = request.form.get("Description")
     img_url = request.form.get("img_url")
     email = request.cookies.get("user_email")
+    if not name or not description:
+        return render_template("/add_product.html", add_item_error = "The name and description are required")
+
     item.insert(name, description,img_url, email)
 
     response = make_response(redirect('/index.html'))

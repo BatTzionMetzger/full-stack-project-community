@@ -1,5 +1,5 @@
 {% extends "base.html"%}
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -17,13 +17,20 @@
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
-    <![endif]-->       
-    <!-- <link rel="shortcut icon" href="images/ico/favicon.ico">
+	<![endif]-->       
+	<script>
+		function myFunction() {
+		//   document.getElementById("errors_login").
+		document.getElementById("errors_login").style.display = 'None';;
+		}
+		document.getElementById("login_form").addEventListener('click', myFunction, true);
+	</script>
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png"> -->
-<!-- </head>/head -->
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+ </head>
 
 <!-- <body>
 	<header id="header"><!--header-->
@@ -149,7 +156,7 @@
 			{% block content%}
 			<div class="row">
 				<div class="col-sm-4 col-sm-offset-1">
-					<div class="login-form"><!--login form-->
+					<div class="login-form" ><!--login form-->
 						<h2>Login to your account</h2>
 						<form action="/login" method="get" id="login_form">
 						   <input type="email" placeholder="Email Address" name="email" id="email_login"/>
@@ -159,7 +166,7 @@
 							  Keep me signed in
 						   </span>
 						   <button type="submit" class="btn btn-default" id="submit__login">Login</button>
-						   <span id="errors_login"></span>
+						   <span id="errors_login" style="color: red;">{{ login_error}}</span>
 						</form>
 					 </div><!--/login form-->
 				</div>
@@ -174,9 +181,10 @@
 							<input type="email" placeholder="Email Address" name="email"/>
 							<input type="password" placeholder="Password" name="password"/>
 							<input type ="text" placeholder = "community" name="community"/>
-							<input type ="text" placeholder = "community password" name = "community_password"/>
+							<input type ="password" placeholder = "community password" name = "community_password"/>
 							<input type ="number" placeholder = "phone" name="phone"/>
 							<button type="submit" class="btn btn-default">Signup</button>
+							<span id="errors_login" style="color: red;">{{ sign_up_error}}</span>
 						</form>
 					</div><!--/sign up form-->
 				</div>
