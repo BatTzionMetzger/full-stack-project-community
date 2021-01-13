@@ -38,3 +38,11 @@ def get_item_by_email(user_email):
     res_items = select_query(items_query) 
     return res_items
 
+
+def check_if_user_exists_by_email_and_password(email, password):
+    query = '''SELECT count(*) FROM user 
+        WHERE mail = '{}' and password = {}'''.format(email, password)
+    res = select_query(query)
+    if res[0].get('count(*)') > 0:
+        return True
+    return False

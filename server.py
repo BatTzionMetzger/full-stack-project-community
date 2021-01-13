@@ -17,8 +17,8 @@ def signup():
 
 @app.route('/<page>')
 def get_main_page(page):
-    # user_email = request.cookies.get("user_email")
-    user_email ="77@gmail.com"
+    user_email = request.cookies.get("user_email")
+    # user_email ="77@gmail.com"
     user_items_list = {}
     if user_email:
         user_items_list = user.get_item_by_email(user_email)
@@ -67,6 +67,18 @@ def get_user_signup_page():
 @app.route('/users/login')
 def get_user_login_page():
     pass
+
+@app.route('/login')
+def login():
+    email = request.args.get('email')
+    password = request.args.get('password')
+    print("The email address is '" + email + "'")
+    is_user = user.check_if_user_exists_by_email_and_password(email, password)
+    if not is_user:
+        return json.dumps({"error": "Either password or email are incorrect."}), 400
+    response = make_response(redirect("/index.html"))
+    response.set_cookie("user_email", email)
+    return response
 
 @app.route('/users', methods = ["POST"])
 def add_user():
