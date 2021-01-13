@@ -55,4 +55,10 @@ def get_user_ownered_products(user_email):
     res_items = select_query(items_query) 
     return res_items
 
-print(get_user_ownered_products("77@gmail.com"))
+def get_all_user_in_communitiy_of_user(user_email):
+    community_id = get_community_id_of_user(user_email)
+    users_query = '''SELECT name ,  mail 
+                FROM user 
+                WHERE mail <> '{}' and community_id = {} '''.format(user_email, community_id)  
+    res_users = select_query(users_query) 
+    return res_users

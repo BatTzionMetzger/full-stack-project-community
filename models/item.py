@@ -1,4 +1,5 @@
 from models.db_queries import *
+import  models.user as user
 # from db_queries import *
 
 # def is_exist(email):
@@ -16,6 +17,16 @@ def insert(name, description,img_path, owners_mail):
     if succ:
         return True
     return False
+
+
+def  get_item_by_owber(user_email):
+    community_id = user.get_community_id_of_user(user_email)
+    items_query = '''SELECT i.name as name, i.id as id , i.img_path as img_path, i.description as description
+                FROM user as u JOIN item as i ON i.owners_mail = u.mail
+                WHERE mail = '{}' and u.community_id = {} and i.is_available = 1'''.format(user_email, community_id)  
+    res_items = select_query(items_query) 
+    return res_items
+
 
 def buy(item_id, user_email):
     query = """UPDATE item 

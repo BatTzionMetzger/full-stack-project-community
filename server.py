@@ -18,22 +18,34 @@ def signup():
 @app.route('/<page>')
 def get_main_page(page):
     user_email = request.cookies.get("user_email")
+    owner_mail = request.cookies.get("owner_item")
+    community_users_list=user.get_all_user_in_communitiy_of_user(user_email)
     # user_email ="77@gmail.com"
     user_items_list = {}
     user_ownered_product = {}
     if user_email:
-        user_items_list = user.get_item_by_email(user_email)
+        if owner_mail:
+            user_items_list=item.get_item_by_owber(owner_mail)
+        else:
+            user_items_list = user.get_item_by_email(user_email)
         user_ownered_product = user.get_user_ownered_products(user_email)
         user_owned_len = len(user_ownered_product)
         first_item_len = user_owned_len if user_owned_len <= 3 else 3
         second_item_len = user_owned_len - first_item_len if user_owned_len - first_item_len > 0 else 0
         response = make_response(render_template(page, user_items = user_items_list,
                                 user_owner_products = user_ownered_product, first_len = first_item_len,
-                                second_len = second_item_len))
+                                second_len = second_item_len,community_users =community_users_list ))
         response.set_cookie("user_email", user_email)
+        response.set_cookie("owner_item",'',expires=0)
         return response
     return render_template(page, user_items = user_items_list)
  
+
+@app.route('/index/<mail_item_of>', methods=['POST'])
+def get_main_page_with_items_of_user(mail_item_of):
+    response = make_response(redirect("/index.html"))
+    response.set_cookie("owner_item", mail_item_of)
+    return response
 
 
 @app.route('/communities/signup')
