@@ -1,4 +1,5 @@
 from models.db_queries import *
+# from db_queries import *
 
 def is_exist(email):
     query = '''SELECT count(*) FROM user 
@@ -46,3 +47,12 @@ def check_if_user_exists_by_email_and_password(email, password):
     if res[0].get('count(*)') > 0:
         return True
     return False
+
+def get_user_ownered_products(user_email):
+    items_query = '''SELECT *
+                FROM  item 
+                WHERE owners_mail = '{}' and  is_available = 1'''.format(user_email)  
+    res_items = select_query(items_query) 
+    return res_items
+
+print(get_user_ownered_products("77@gmail.com"))

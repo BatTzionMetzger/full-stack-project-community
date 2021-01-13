@@ -20,9 +20,16 @@ def get_main_page(page):
     user_email = request.cookies.get("user_email")
     # user_email ="77@gmail.com"
     user_items_list = {}
+    user_ownered_product = {}
     if user_email:
         user_items_list = user.get_item_by_email(user_email)
-        response = make_response(render_template(page, user_items = user_items_list))
+        user_ownered_product = user.get_user_ownered_products(user_email)
+        user_owned_len = len(user_ownered_product)
+        first_item_len = user_owned_len if user_owned_len <= 3 else 3
+        second_item_len = user_owned_len - first_item_len if user_owned_len - first_item_len > 0 else 0
+        response = make_response(render_template(page, user_items = user_items_list,
+                                user_owner_products = user_ownered_product, first_len = first_item_len,
+                                second_len = second_item_len))
         response.set_cookie("user_email", user_email)
         return response
     return render_template(page, user_items = user_items_list)

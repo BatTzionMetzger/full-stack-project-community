@@ -688,7 +688,7 @@
 																<img src="images/home/recommend1.jpg" alt="" />
 																<h2>{{user_owner_products[i].get("name")}}</h2>
 																<p>{{user_owner_products[i].get("description")}}</p>
-																<form action={{ "/items/buy/"}}{{(user_owner_products[i].get("id")) }} method="POST">
+																<form action={{ "/items/buy/" + (user_owner_products[i].get("id")) }} method="POST">
 																	<button class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Sold!</button>
 																</form>
 															</div>
@@ -735,7 +735,7 @@
 																	<img src="images/home/recommend1.jpg" alt="" />
 																	<h2>{{user_owner_products[3 + i*3 + j].get("name")}}</h2>
 																	<p>{{user_owner_products[3 + i*3 + j].get("description")}}</p>
-																	<form action={{ "/items/buy/"}}{{(user_owner_products[3 + i*3 + j].get("id")) }} method="POST">
+																	<form action={{ "/items/buy/" + (user_owner_products[3 + i*3 + j].get("id")) }} method="POST">
 																		<button class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Sold!</button>
 																	</form>
 																</div>

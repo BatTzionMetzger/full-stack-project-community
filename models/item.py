@@ -1,4 +1,5 @@
 from models.db_queries import *
+# from db_queries import *
 
 # def is_exist(email):
 #     query = '''SELECT count(*) FROM item 
