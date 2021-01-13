@@ -39,5 +39,5 @@ USE community_db;
 UPDATE item 
 SET is_available = 1, ordered_by_mail = null;
 
-select * from item;
+select * from user;
 -- select * from user;

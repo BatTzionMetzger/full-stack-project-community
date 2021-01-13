@@ -19,30 +19,32 @@ def signup():
 def get_main_page(page):
     user_email = request.cookies.get("user_email")
     owner_mail = request.cookies.get("owner_item")
-    community_users_list=user.get_all_user_in_communitiy_of_user(user_email)
     # user_email ="77@gmail.com"
     user_items_list = {}
     user_ownered_product = {}
     item_dict = {"name": request.cookies.get("name"), "description": request.cookies.get("description"),
              "email": request.cookies.get("owners_mail"), "img_path": request.cookies.get("img_path"),
              "phone": request.cookies.get("phone")}
-    if item_dict["name"]:
-        response = make_response(render_template(page, item_dict=item_dict))
-        if user_email:
-            response.set_cookie("user_email", user_email)
-        return response
+    # if item_dict["name"]:
+        # response = make_response(render_template(page, item_dict=item_dict))
+        # if user_email:
+        #     response.set_cookie("user_email", user_email)
+        # return response
     if user_email:
+        community_users_list=user.get_all_user_in_communitiy_of_user(user_email)
         if owner_mail:
             user_items_list=item.get_item_by_owber(owner_mail)
         else:
             user_items_list = user.get_item_by_email(user_email)
+        # if item_dict["name"]:
+            
         user_ownered_product = user.get_user_ownered_products(user_email)
         user_owned_len = len(user_ownered_product)
         first_item_len = user_owned_len if user_owned_len <= 3 else 3
         second_item_len = user_owned_len - first_item_len if user_owned_len - first_item_len > 0 else 0
         response = make_response(render_template(page, user_items = user_items_list,
                                 user_owner_products = user_ownered_product, first_len = first_item_len,
-                                second_len = second_item_len,community_users =community_users_list ))
+                                second_len = second_item_len,community_users =community_users_list , item_dict=item_dict))
         response.set_cookie("user_email", user_email)
         response.set_cookie("owner_item",'',expires=0)
         return response

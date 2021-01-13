@@ -1,8 +1,7 @@
-<!-- <!	DOCTYPE html>
-<html lang="en"> -->
-	{% extends "base.html"%}
-<!-- <head> -->
-    <!-- <meta charset="utf-8">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -19,22 +18,22 @@
           background-color:white; /* Green */
           border: none;
         }
-	</style> -->
+	</style>
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->       
-    <!-- <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png"> -->
-<!-- </head>/head -->
+	<link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
 
-<!-- <body> -->
-	<!-- <header id="header">header -->
-		<!-- <div class="header_top">header_top -->
-			<!-- <div class="container">
+<body>
+	<header id="header"><!--header-->
+		<div class="header_top"><!--header_top-->
+			<div class="container">
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="contactinfo">
@@ -56,17 +55,17 @@
 						</div>
 					</div>
 				</div>
-			</div> -->
-		<!-- </div>/header_top -->
+			</div>
+		</div><!--/header_top-->
 		
-		<!-- <div class="header-middle">header-middle -->
-			<!-- <div class="container">
+		<div class="header-middle"><!--header-middle-->
+			<div class="container">
 				<div class="row">
 					<div class="col-md-4 clearfix">
 						<div class="logo pull-left">
 							<a href="index.html"><img src="images/home/logo.png" alt="" /></a>
 						</div>
-						<div class="btn-group pull-right clearfix"> -->
+						<div class="btn-group pull-right clearfix">
 							<!-- <div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
 									USA
@@ -88,27 +87,27 @@
 									<li><a href="">Pound</a></li>
 								</ul>
 							</div> -->
-						<!-- </div>
+						</div>
 					</div>
 					<div class="col-md-8 clearfix">
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href=""><i class="fa fa-user"></i> Account</a></li> -->
+								<li><a href=""><i class="fa fa-user"></i> Account</a></li>
 								<!-- <li><a href=""><i class="fa fa-star"></i> Wishlist</a></li> -->
 								<!-- <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li> -->
 								<!-- <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li> -->
-								<!-- <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
 								<li><a href="/communities/signup"><i class="fa fa-lock"></i> Add Community</a></li>
 
 							</ul>
 						</div>
 					</div>
 				</div>
-			</div> -->
-		<!-- </div>/header-middle -->
+			</div>
+		</div><!--/header-middle-->
 	
-		<!-- <div class="header-bottom">header-bottom -->
-			<!-- <div class="container">
+		<div class="header-bottom"><!--header-bottom-->
+			<div class="container">
 				<div class="row">
 					<div class="col-sm-9">
 						<div class="navbar-header">
@@ -130,7 +129,7 @@
 										<li><a href="cart.html">Cart</a></li> 
 										<li><a href="login.html">Login</a></li> 
                                     </ul>
-                                </li>  -->
+                                </li> 
 								<!-- <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="blog.html">Blog List</a></li>
@@ -138,7 +137,7 @@
                                     </ul>
                                 </li>  -->
 								<!-- <li><a href="404.html">404</a></li> -->
-								<!-- <li><a href="contact-us.html">Contact</a></li>
+								<li><a href="contact-us.html">Contact</a></li>
 							</ul>
 						</div>
 					</div>
@@ -148,13 +147,12 @@
 						</div>
 					</div>
 				</div>
-			</div> -->
-		<!-- </div>/header-bottom -->
-	<!-- </header>/header -->
-	{% block content%}
-	<section id="slider">
-		<div class="container">
-			
+			</div>
+		</div><!--/header-bottom-->
+	</header><!--/header-->
+	{% block content%}{% endblock%}
+	<!-- <section id="slider">slider -->
+		<!-- <div class="container">
 			<div class="row">
 				<div class="col-sm-12">
 					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
@@ -215,19 +213,19 @@
 					
 				</div>
 			</div>
-		</div>
-	</section>
+		</div> -->
+	<!-- </section>/slider -->
 	
-	<section>
-		<div class="container">
+	<!-- <section>
+		<div class="container"> -->
 			
-			<div class="row">
+			<!-- <div class="row">
 				<div class="col-sm-3">
 					{% if  user_items%}
 					<div class="left-sidebar">
 						<h2>Category</h2>
-						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
-							<div class="panel panel-default">
+						<div class="panel-group category-products" id="accordian">category-productsr -->
+							<!-- <div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
@@ -269,7 +267,7 @@
 										</ul>
 									</div>
 								</div>
-							</div>
+							</div> -->
 							
 							<!-- <div class="panel panel-default">
 								<div class="panel-heading">
@@ -327,9 +325,9 @@
 									<h4 class="panel-title"><a href="#">Shoes</a></h4>
 								</div>
 							</div> -->
-						</div><!--/category-products-->
+						<!-- </div>/category-products -->
 					
-						<div class="brands_products"><!--brands_products-->
+						<!-- <div class="brands_products">brands_products -->
 							<!-- <h2>Brands</h2>
 							<div class="brands-name">
 								<ul class="nav nav-pills nav-stacked">
@@ -342,26 +340,25 @@
 									<li><a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
 								</ul>
 							</div> -->
-						</div><!--/brands_products-->
+						<!-- </div>/brands_products -->
 						
-						<div class="price-range"><!--price-range-->
-							<h2>Price Range</h2>
+						<!-- <div class="price-range">price-range -->
+							<!-- <h2>Price Range</h2>
 							<div class="well text-center">
 								 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
 								 <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
-							</div>
-						</div><!--/price-range-->
+							</div> -->
+						<!-- </div>/price-range -->
 						
-						<div class="shipping text-center"><!--shipping-->
-							<img src="images/home/shipping.jpg" alt="" />
-						</div><!--/shipping-->
+						<!-- <div class="shipping text-center"><!--shipping-->
+							<!-- <img src="images/home/shipping.jpg" alt="" />
+						</div>/shipping -->
 					
-					</div>
-				</div>
-				
-					<div class="col-sm-9 padding-right">
+					<!-- </div>
+				</div> -->
+					<!-- <div class="col-sm-9 padding-right">
 						<div class="features_items"><!--features_items-->
-							<h2 class="title text-center">Features Items</h2>
+							<!-- <h2 class="title text-center">Features Items</h2>
 							{% for item in user_items %}
 								<div class="col-sm-4">
 									<div class="product-image-wrapper">
@@ -391,10 +388,10 @@
 				
 									</div>
 								</div>
-							{%endfor%}
+							{%endfor%} -->
 							
-						</div><!--features_items-->
-				{% endif  %}		
+						<!-- </div>features_items -->
+				<!-- {% endif  %}		 -->
 						<!-- <div class="category-tab">category-tab
 							<div class="col-sm-12">
 								<ul class="nav nav-tabs">
@@ -682,9 +679,9 @@
 								</div>
 							</div>
 						</div> category-tab --> 
-						{% if user_owner_products%}
+						<!-- {% if user_owner_products%}
 							<div class="recommended_items"><!--recommended_items-->
-								<h2 class="title text-center">My Products</h2>
+								<!-- <h2 class="title text-center">My Products</h2>
 								
 								<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
 									<div class="carousel-inner">
@@ -706,7 +703,7 @@
 														</div>
 													</div>
 												</div>
-											{% endfor %}
+											{% endfor %} --> 
 											<!-- <div class="col-sm-4">
 												<div class="product-image-wrapper">
 													<div class="single-products">
@@ -733,9 +730,9 @@
 													</div>
 												</div>
 											</div> -->
-										</div>
+										<!-- </div> -->
 										
-										{% for i in range(second_len//3 if (second_len//3) * 3 == second_len else second_len//3 + 1) %}
+										<!-- {% for i in range(second_len//3 if (second_len//3) * 3 == second_len else second_len//3 + 1) %}
 											<div class="item">	
 												{% for j in range ( second_len - 3 * i if (second_len - 3 * i == 0 or second_len - 3 * i == 1 or second_len - 3 * i == 2) else 3)%}
 													<div class="col-sm-4">
@@ -753,7 +750,7 @@
 															</div>
 														</div>
 													</div>
-												{% endfor %}
+												{% endfor %} -->
 												<!-- <div class="col-sm-4">
 													<div class="product-image-wrapper">
 														<div class="single-products">
@@ -780,7 +777,7 @@
 														</div>
 													</div>
 												</div> -->
-											</div>
+											<!-- </div>
 										{% endfor %}
 									</div>
 									<a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
@@ -794,19 +791,12 @@
 						{% endif %}
 					</div>
 				
-			</div>
-			
-		</div>
-	</section>
-	{% endblock%}
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.scrollUp.min.js"></script>
-	<script src="js/price-range.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/main.js"></script>
-	<!-- <footer id="footer">Footer -->
-		<!-- <div class="footer-top">
+			</div> -->
+		<!-- </div>
+	</section> -->
+	
+	<footer id="footer"><!--Footer-->
+		<div class="footer-top">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-2">
@@ -814,7 +804,7 @@
 							<h2><span>e</span>-shopper</h2>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
 						</div>
-					</div> -->
+					</div>
 					<!-- <div class="col-sm-7">
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
@@ -882,7 +872,7 @@
 							<p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
 						</div>
 					</div> -->
-				<!-- </div>
+				</div>
 			</div>
 		</div>
 		
@@ -960,16 +950,16 @@
 				</div>
 			</div>
 		</div>
-		 -->
-	<!-- </footer>/Footer -->
+		
+	</footer><!--/Footer-->
 	
 
   
-    <!-- <script src="js/jquery.js"></script>
+    <script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.scrollUp.min.js"></script>
 	<script src="js/price-range.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/main.js"></script> -->
-<!-- </body>
-</html> -->
+    <script src="js/main.js"></script>
+</body>
+</html>
