@@ -23,6 +23,14 @@ def get_main_page(page):
     # user_email ="77@gmail.com"
     user_items_list = {}
     user_ownered_product = {}
+    item_dict = {"name": request.cookies.get("name"), "description": request.cookies.get("description"),
+             "email": request.cookies.get("owners_mail"), "img_path": request.cookies.get("img_path"),
+             "phone": request.cookies.get("phone")}
+    if item_dict["name"]:
+        response = make_response(render_template(page, item_dict=item_dict))
+        if user_email:
+            response.set_cookie("user_email", user_email)
+        return response
     if user_email:
         if owner_mail:
             user_items_list=item.get_item_by_owber(owner_mail)
@@ -40,6 +48,22 @@ def get_main_page(page):
         return response
     return render_template(page, user_items = user_items_list)
  
+
+
+@app.route('/items/look_at/<item_id>')
+def look_at_item(item_id):
+    user_email = request.cookies.get("user_email")
+    item_dict = item.get_item_details(item_id)
+    if user_email:
+        # item.buy(item_id, user_email)
+        response = make_response(redirect("/item.html"))
+        for key, value in item_dict.items():
+            response.set_cookie(key, str(value))
+        response.set_cookie("user_email", user_email)
+        return response
+    else:
+        return json.dumps({"error": "Please log in or sign up"}), 400
+
 
 @app.route('/index/<mail_item_of>', methods=['POST'])
 def get_main_page_with_items_of_user(mail_item_of):

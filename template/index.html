@@ -370,17 +370,17 @@
 													{% endif%}
 													<h2>{{item.get("name")}}</h2>
 													<p>{{item.get("description")}}</p>
-													<form action="/items/buy/{{item.get('id')}}" method="POST">
+													<form action="/items/look_at/{{item.get('id')}}" method="GET" target="_blank">
 														<button class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>I want it!</button>
-													</form>
+													 </form>
 												</div>
 												<div class="product-overlay">
 													<div class="overlay-content">
 														<h2>{{item.get("name")}}</h2>
 														<p>{{item.get("description")}}</p>
-														<form action="/items/buy/{{item.get('id')}}" method="POST">
+														<form action="/items/look_at/{{item.get('id')}}" method="GET" target="_blank">
 															<button class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>I want it!</button>
-														</form>
+														 </form>
 													</div>
 												</div>
 										</div>

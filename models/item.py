@@ -36,3 +36,12 @@ def buy(item_id, user_email):
     if succ:
         return True
     return False
+
+def get_item_details(item_id):
+    query = "SELECT * from item where id = {}".format(item_id)
+    item_ = select_query(query)[0]
+    query = "SELECT phone from user where mail = '{}'".format(item_.get('owners_mail'))
+    phone_as_int = select_query(query)[0].get('phone')
+    phone_str = "0" + str(phone_as_int)
+    item_["phone"] = phone_str
+    return item_
