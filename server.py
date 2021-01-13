@@ -190,7 +190,11 @@ def get_community_details_page():
     pass
 
 
-
+@app.route('/logout')
+def logout():
+    response = make_response(redirect("/index.html"))
+    response.set_cookie("user_email", "", expires=0)
+    return response
 
 
 if __name__ == '__main__':
