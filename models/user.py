@@ -63,3 +63,11 @@ def get_all_user_in_communitiy_of_user(user_email):
                 WHERE mail <> '{}' and community_id = {} '''.format(user_email, community_id)  
     res_users = select_query(users_query) 
     return res_users
+
+def get_owner_email(user_email):
+    community_id = get_community_id_of_user(user_email)
+    admin_mail_query = '''SELECT admin_mail 
+                FROM community 
+                WHERE id = {} '''.format(community_id)  
+    res_admin_mail = select_query(admin_mail_query) 
+    return res_admin_mail[0].get('admin_mail')

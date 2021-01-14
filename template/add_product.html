@@ -156,8 +156,9 @@
 						<form action="/items" method="post" enctype="multipart/form-data">
                             <input type="text" placeholder="Name" name="name"/>
                             <input type="text" placeholder="Description" name="Description"/>
-							<input type="file" name="file">
-							<button type="submit" class="btn btn-default">Signup</button>
+                            <input type="file" name="file">
+							<button type="submit" class="btn btn-default">Add</button>
+							<span id="errors_login" style="color: red;">{{ add_item_error}}</span>
 						</form>
 					</div><!--/sign up form-->
 				</div>

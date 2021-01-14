@@ -21,18 +21,18 @@ USE community_db;
 --     FOREIGN KEY(community_id) REFERENCES community(id)
 -- );
 -- drop TABLE  item
-CREATE TABLE item(
-    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50),
-    description varchar(100),
-    is_available boolean default 1,
-    ordered_by_mail varchar(50) ,
-    owners_mail varchar(50) NOT NULL,
-    img_path varchar(100),
+-- CREATE TABLE item(
+--     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+--     name VARCHAR(50),
+--     description varchar(100),
+--     is_available boolean default 1,
+--     ordered_by_mail varchar(50) ,
+--     owners_mail varchar(50) NOT NULL,
+--     img_path varchar(100),
     
-    FOREIGN KEY(owners_mail) REFERENCES user(mail),
-    FOREIGN KEY(ordered_by_mail) REFERENCES user(mail)
-);
+--     FOREIGN KEY(owners_mail) REFERENCES user(mail),
+--     FOREIGN KEY(ordered_by_mail) REFERENCES user(mail)
+-- );
 
 -- drop TABLE item
 
@@ -40,4 +40,5 @@ CREATE TABLE item(
 -- SET is_available = 1, ordered_by_mail = null;
 
 -- select * from item;
+select * from community;
 -- select * from user;

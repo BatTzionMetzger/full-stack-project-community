@@ -4,6 +4,10 @@ import requests
 from string_utils import is_valid_email, is_valid_phone
 from models import community, item, user
 
+import smtplib
+from email.mime.text import MIMEText
+import sys
+# import chilkat
 
 import imghdr
 import os
@@ -77,7 +81,7 @@ def get_main_page(page):
         response.set_cookie("user_email", user_email)
         response.set_cookie("owner_item",'',expires=0)
         return response
-    return render_template(page, user_items = user_items_list, community_path = "defolt.png")
+    return render_template(page, user_items = user_items_list, community_path = "defolt.png" , login_error ="", sign_up_error = "")
  
 
 
@@ -129,10 +133,10 @@ def add_community():
 
     if name and psd and admin_mail:
         if not is_valid_email(admin_mail):
-            return json.dumps({"error": "The email is not valid"}), 400
-        community.insert(name, psd, admin_mail, img_name)
+            return render_template("/addcommunity.html", add_comm_error =  "\nThe email is not valid")
+        community.insert(name, psd, admin_mail, img_path)
     else:
-        return json.dumps({"error": "All field- name, psd and admin_mail are mandatory"}), 400
+        return render_template("/addcommunity.html", add_comm_error =  "\nAll field- name, password and admin email are mandatories")
     
     if user_email:
         response = make_response(render_template("index.html"))
@@ -153,10 +157,11 @@ def get_user_login_page():
 def login():
     email = request.args.get('email')
     password = request.args.get('password')
-    print("The email address is '" + email + "'")
+    if not email or not password:
+        return render_template("/login.html", login_error =  "\nEither password or email are incorrect.", sign_up_error = "" )
     is_user = user.check_if_user_exists_by_email_and_password(email, password)
     if not is_user:
-        return json.dumps({"error": "Either password or email are incorrect."}), 400
+        return render_template("/login.html", login_error =  "\nPassword and Email are not match", sign_up_error = "")
     response = make_response(redirect("/index.html"))
     response.set_cookie("user_email", email)
     return response
@@ -171,17 +176,17 @@ def add_user():
     phone = request.form.get("phone")
     if email and psd and name and community_id and community_psd:
         if not is_valid_email(email):
-            return json.dumps({"error": "The email is not valid"}), 400
+            return render_template("/login.html", login_error =  "", sign_up_error = "\nThe email is not valid")
         if not is_valid_phone(phone):
-            return json.dumps({"error": "The phone number is not valid"}), 400
+            return render_template("/login.html", login_error =  "", sign_up_error = "\nThe phone is not valid")
         if user.is_exist(email):
-            return json.dumps({"error": "The user is aleady exist"}), 400
+            return render_template("/login.html", login_error =  "", sign_up_error = "\nThe user is aleady exist")
         if community.is_exist(community_id, community_psd):
             user.insert(email, psd, name, community_id, int(phone))
         else:
-           return json.dumps({"error": "The community and psd not match"}), 400 
+            return render_template("/login.html", login_error =  "", sign_up_error = "\nThe community and psd not match")
     else:
-        return json.dumps({"error": "All field- name, psd and admin_mail are mandatory"}), 400
+        return render_template("/login.html", login_error =  "", sign_up_error = "\nAll field- name, psd and admin_mail are mandatory")
     
 
     response = make_response(redirect('/index.html'))
@@ -202,8 +207,12 @@ def add_item():
     print("hiii1")
     name =  request.form.get("name")
     description = request.form.get("Description")
-    #img_url = request.form.get("img_url")
+    img_url = request.form.get("img_url")
     email = request.cookies.get("user_email")
+    if not name or not description:
+        return render_template("/add_product.html", add_item_error = "The name and description are required")
+
+    item.insert(name, description,img_url, email)
     #item.insert(name, description,img_url, email)
 
     
@@ -253,6 +262,46 @@ def logout():
     response.set_cookie("user_email", "", expires=0)
     return response
 
+@app.route('/send_email', methods = ["POST"])
+def send_email():
+    name = request.form.get('name')
+    email = 'slmj5885@gmail.com'
+    subject = request.form.get('subject')
+    message = request.form.get('message')
+    user_email = request.cookies.get("user_email")
+
+    to_send = user.get_owner_email(user_email)
+
+    msg = MIMEText(message)
+    # msg = message
+    host = "server.smtp.com"
+    server = smtplib.SMTP('64.233.184.108')
+    MSG = "Subject: {}\n\n{}".format(subject, message)
+    server.ehlo()
+    server.starttls()
+    server.login('slmj5885@gmail.com', '207352816')
+    server.sendmail(email, to_send, MSG)
+
+    server.quit()
+    # mailman = chilkat.CkMailMan()
+    # mailman.put_SmtpHost("localhost")
+    # mailman.put_SmtpAuthMethod("NONE")
+    # email = chilkat.CkEmail()
+    # email.put_Subject("This is a test")
+    # email.put_Body("This is a test")
+    # email.put_From("Chilkat Support <support@chilkatsoft.com>")
+    # success = email.AddTo("Chilkat Admin","admin@chilkatsoft.com")
+    # if (success != True):
+    #     print(mailman.lastErrorText())
+    #     sys.exit()
+    
+    # success = mailman.CloseSmtpConnection()
+    # if (success != True):
+    #     print("Connection to SMTP server not closed cleanly.")
+
+    response = make_response(redirect("/index.html"))
+    response.set_cookie("user_email", email)
+    return response
 
 if __name__ == '__main__':
     app.run(port=3000)
