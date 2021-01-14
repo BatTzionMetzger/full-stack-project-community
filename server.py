@@ -4,6 +4,10 @@ import requests
 from string_utils import is_valid_email, is_valid_phone
 from models import community, item, user
 
+import smtplib
+from email.mime.text import MIMEText
+import sys
+# import chilkat
 
 import imghdr
 import os
@@ -243,6 +247,46 @@ def logout():
     response.set_cookie("user_email", "", expires=0)
     return response
 
+@app.route('/send_email', methods = ["POST"])
+def send_email():
+    name = request.form.get('name')
+    email = 'slmj5885@gmail.com'
+    subject = request.form.get('subject')
+    message = request.form.get('message')
+    user_email = request.cookies.get("user_email")
+
+    to_send = user.get_owner_email(user_email)
+
+    msg = MIMEText(message)
+    # msg = message
+    host = "server.smtp.com"
+    server = smtplib.SMTP('64.233.184.108')
+    MSG = "Subject: {}\n\n{}".format(subject, message)
+    server.ehlo()
+    server.starttls()
+    server.login('slmj5885@gmail.com', '207352816')
+    server.sendmail(email, to_send, MSG)
+
+    server.quit()
+    # mailman = chilkat.CkMailMan()
+    # mailman.put_SmtpHost("localhost")
+    # mailman.put_SmtpAuthMethod("NONE")
+    # email = chilkat.CkEmail()
+    # email.put_Subject("This is a test")
+    # email.put_Body("This is a test")
+    # email.put_From("Chilkat Support <support@chilkatsoft.com>")
+    # success = email.AddTo("Chilkat Admin","admin@chilkatsoft.com")
+    # if (success != True):
+    #     print(mailman.lastErrorText())
+    #     sys.exit()
+    
+    # success = mailman.CloseSmtpConnection()
+    # if (success != True):
+    #     print("Connection to SMTP server not closed cleanly.")
+
+    response = make_response(redirect("/index.html"))
+    response.set_cookie("user_email", email)
+    return response
 
 if __name__ == '__main__':
     app.run(port=3000)
