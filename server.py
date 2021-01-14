@@ -249,13 +249,20 @@ def logout():
 
 @app.route('/send_email', methods = ["POST"])
 def send_email():
+    owners_mail = request.cookies.get("owners_mail")
+    response = make_response(redirect("/index.html"))
+
     name = request.form.get('name')
     email = 'slmj5885@gmail.com'
     subject = request.form.get('subject')
     message = request.form.get('message')
     user_email = request.cookies.get("user_email")
-
     to_send = user.get_owner_email(user_email)
+
+    if owners_mail:
+        to_send = owners_mail
+        response.set_cookie("owners_mail", "", expires=0)
+        
 
     msg = MIMEText(message)
     # msg = message
@@ -284,7 +291,6 @@ def send_email():
     # if (success != True):
     #     print("Connection to SMTP server not closed cleanly.")
 
-    response = make_response(redirect("/index.html"))
     response.set_cookie("user_email", email)
     return response
 

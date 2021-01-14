@@ -1,5 +1,5 @@
 {% extends "base.html"%}
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -14,17 +14,17 @@
     <link href="css/animate.css" rel="stylesheet">
 	<link href="css/main.css" rel="stylesheet">
 	<link href="css/responsive.css" rel="stylesheet">
-	<link href="css/item.css" rel="stylesheet"> -->
+	<link href="css/item.css" rel="stylesheet"> 
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-    <!-- <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
-</head>/head -->
+</head>
 
 <!-- <body>
 	<header id="header"><!--header-->
@@ -146,56 +146,99 @@
 	<!-- </header>/header -->
 	{% block content%}
 	<section id="cart_items">
-		<div class="container">
-			<div class="breadcrumbs">
+		<div class="row">
+			<!-- <div class="breadcrumbs">
 				<ol class="breadcrumb">
 				  <li><a href="#">Home</a></li>
 				  <li class="active">Shopping Cart</li>
 				</ol>
+			</div> -->
+			<div class="col-sm-4 col-sm-offset-1" style="text-align: right;">
+				<div class="product-image">
+					{% if  item_dict.get("img_path") != 'None' %}
+					<img src="{{item.get('img_path')}}" alt="" />
+					{% else%}
+					<img src="images/home/we.PNG" alt=""/> <!-- "images/home/monster.JPEG" -->
+					{% endif%}
+				</div>
 			</div>
-            <div class="product-image">
-                {% if  item_dict.get("img_path") != 'None' %}
-                <img src="{{item.get('img_path')}}" alt="" />
-                {% else%}
-                <img src="images/home/we.PNG" alt=""/> <!-- "images/home/monster.JPEG" -->
-                {% endif%}
-            </div>
-			<div class="table-responsive cart_info">
-				<table class="table table-condensed">
-					<thead>
-						<tr class="cart_menu">
-							<td class="description">        </td>
-							<td class="price">Description</td> <!--/price = description -->
-							<td class="quantity">Contact Phone Number</td> <!--/quantity = phone -->
-							<td class="total">Contact Email</td>
-							<td></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="cart_description">
-								<h2>{{item_dict.get('name')}}</h2>
-							</td>
-							<td class="cart_quantity"> <!--/cart_price turned into description-->
-								<p>{{item_dict.get('description')}}</p>
-							</td>
-							<td class="cart_quantity"> <!--/quantity = phone -->
-								<p>{{item_dict.get('phone')}}</p>
-							</td>
-							<td class="cart_total">
-								<p>{{item_dict.get('email')}}</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+			<div class="col-sm-4">
+				<div class="table-responsive cart_info">
+					<table class="table table-condensed">
+						<!-- <thead>
+							<tr class="cart_menu">
+								<td class="description">        </td> -->
+								<!-- <td class="price">Description</td> /price = description -->
+								<!-- <td class="quantity">Contact Phone Number</td> /quantity = phone -->
+								<!-- <td class="total">Contact Email</td>
+								<td></td>
+							</tr>
+						</thead> -->
+						<!-- <tbody>
+							<tr>
+								<td class="cart_description">
+									<h2>{{item_dict.get('name')}}</h2>
+								</td> -->
+								<!-- <td class="cart_quantity"> /cart_price turned into description -->
+									<!-- <p>{{item_dict.get('description')}}</p>
+								</td> -->
+								<!-- <td class="cart_quantity"> /quantity = phone -->
+									<!-- <p>{{item_dict.get('phone')}}</p>
+								</td>
+								<td class="cart_total">
+									<a href="#popup1">{{item_dict.get('email')}}</a>
+								</td>
+								<td class="cart_delete">
+									<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+								</td>
+							</tr> -->
+							<tr style="margin: 10px;"">
+								<th style="margin: 10px; color: #FE980F  ;">Name:</th>
+								<td>{{item_dict.get('name')}}</td>
+							</tr>
+							<tr>
+								<th style=" margin: 5px; color: #FE980F ;">Description:</th>
+								<td>{{item_dict.get('description')}}</td>
+							</tr>
+							<tr>
+								<th style="margin: 5px; color: #FE980F ;">Contact Phone Number:</th>
+								<td>{{item_dict.get('phone')}}</td>
+							</tr>
+							<tr>
+								<th style="margin: 5px; color: #FE980F ;">Contact Email</th>
+								<td><a href="#popup1">{{item_dict.get('email')}}</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>	
 		</div>
 	</section> <!--/#cart_items-->
+	<div id="popup1" class="overlay">
+		<div class="popup">
+			<div class="contact-form">
+				<h2 class="title text-center">Get In Touch</h2>
+				<div class="status alert alert-success" style="display: none"></div>
+				<form id="main-contact-form" action="/send_email" class="contact-form row" name="contact-form" method="post">
+				<!-- <form action="sendemail.php"  method="post"> -->
+						<div class="form-group col-md-6">
+						<input type="text" name="name" class="form-control" required="required" placeholder="Name!!">
+					</div>
+					<div class="form-group col-md-12">
+						<input type="text" name="subject" class="form-control" required="required" placeholder="Subject">
+					</div>
+					<div class="form-group col-md-12">
+						<textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Your Message Here"></textarea>
+					</div>                        
+					<div class="form-group col-md-12">
+						<input type="submit" name="submit" class="btn btn-primary pull-right" value="Submit">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 
-	<section id="do_action">
+	<!-- <section id="do_action">
 		<div class="container">
 			<div class="heading">
 				<h3>What would you like to do next?</h3>
@@ -268,8 +311,8 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</section><!--/#do_action-->
+		</div> -->
+	<!-- </section>/#do_action -->
 	{% endblock%}
 	<!-- <footer id="footer">Footer -->
 		<!-- <div class="footer-top">
