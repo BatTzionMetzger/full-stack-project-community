@@ -20,4 +20,15 @@ def is_exist(id_, password):
     if res[0].get('count(*)') > 0:
         return True
     return False
-insert("a","1", "aa@gmail.com", None)
+
+def get_path_to_img(id):
+    query = '''SELECT img_path FROM community 
+    WHERE id = {} '''.format(id)
+    res = select_query(query)
+    return res[0]['img_path']
+
+
+def get_size_community():
+    query = "SELECT COUNT(*) FROM community"
+    return  int(select_query(query)[0]["COUNT(*)"])
+

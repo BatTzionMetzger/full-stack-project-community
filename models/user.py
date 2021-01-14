@@ -27,6 +27,7 @@ def get_community_id_of_user(user_email):
                 FROM user
                 WHERE mail = '{}' '''.format(user_email)
     res_comm = select_query(community_query)
+    print("res_com",res_comm)
     community_id = res_comm[0].get('community_id')
     return community_id
 
