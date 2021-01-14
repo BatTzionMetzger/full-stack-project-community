@@ -223,7 +223,7 @@
 				<div class="col-sm-3">
 					
 					<div class="left-sidebar">
-						<h2>Category</h2>
+						<h2>Filter</h2>
 						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
 							<div class="panel panel-default">
 								<div class="panel-heading">
@@ -237,27 +237,25 @@
 								<div id="sportswear" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul>
-											{% if  community_users %}
 											{% for user in community_users %}
 												<form action="index/{{user.get('mail')}}" method="POST">
 													<button class="button">{{user.get("name")}}</button>
 												</form>
 											{%endfor%}
-											{%endif%}
 										</ul>
 									</div>
 								</div>
 							</div>
 							<div class="panel panel-default">
-								<!-- <div class="panel-heading">
+								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a data-toggle="collapse" data-parent="#accordian" href="#mens">
 											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											קטגוריות
+											Category
 										</a>
 									</h4>
-								</div> -->
-								<!-- <div id="mens" class="panel-collapse collapse">
+								</div>
+								<div id="mens" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul>
 											<li><a href="#">ביגוד</a></li>
@@ -268,7 +266,7 @@
 											<li><a href="#">מוצרי חשמל</a></li>
 										</ul>
 									</div>
-								</div> -->
+								</div>
 							</div>
 							
 							<!-- <div class="panel panel-default">
@@ -695,7 +693,8 @@
 													<div class="product-image-wrapper">
 														<div class="single-products">
 															<div class="productinfo text-center">
-																<img src="images/home/recommend1.jpg" alt="" />
+																<!-- <img src="images/home/recommend1.jpg" alt="" /> -->
+																<img src="images/uploads/{{user_owner_products[i].get('img_path')}}"" alt="" />
 																<h2>{{user_owner_products[i].get("name")}}</h2>
 																<p>{{user_owner_products[i].get("description")}}</p>
 																<form action={{ "/items/buy/"}}{{(user_owner_products[i].get("id")) }} method="POST">

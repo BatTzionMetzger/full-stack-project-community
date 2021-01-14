@@ -30,8 +30,8 @@ app = Flask(__name__, static_url_path='', static_folder='static', template_folde
 
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
 app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.gif']
-app.config['UPLOAD_PATH'] = 'C:/Users/sara leah/Desktop/Excellenteam/course/python/web community/static/images/uploads'
-app.config['COM_UPLOAD_PATH'] = 'C:/Users/sara leah/Desktop/Excellenteam/course/python/web community/static/images/community'
+app.config['UPLOAD_PATH'] = 'C:/Users/metzg/Documents/Community/full-stack-project-community/static/images/uploads'
+app.config['COM_UPLOAD_PATH'] = 'C:/Users/metzg/Documents/Community/full-stack-project-community/static/images/community'
 
 
 

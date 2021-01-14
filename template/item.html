@@ -156,7 +156,7 @@
 			<div class="col-sm-4 col-sm-offset-1" style="text-align: right;">
 				<div class="product-image">
 					{% if  item_dict.get("img_path") != 'None' %}
-					<img src="{{item.get('img_path')}}" alt="" />
+					<img src="{{item_dict.get('img_path')}}" alt="" />
 					{% else%}
 					<img src="images/home/we.PNG" alt=""/> <!-- "images/home/monster.JPEG" -->
 					{% endif%}

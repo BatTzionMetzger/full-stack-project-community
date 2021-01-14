@@ -28,9 +28,11 @@ def get_community_id_of_user(user_email):
                 WHERE mail = '{}' '''.format(user_email)
     res_comm = select_query(community_query)
     print("res_com",res_comm)
-    community_id = res_comm[0].get('community_id')
-    return community_id
-
+    # if res_comm==():
+    #     community_id = res_comm[0].get('community_id')
+    #     return community_id
+    # else:
+    return 277
 def get_item_by_email(user_email):
     community_id = get_community_id_of_user(user_email)
 
