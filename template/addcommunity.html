@@ -147,17 +147,17 @@
 	<!-- <section id="form">form -->
 		<!-- <div class="container"> -->
 			<div class="row">
-				<div class="col-sm-4">
+				<!-- <div class="col-sm-4"> -->
 					<div class="col-sm-4 col-sm-offset-1" style="width:125%; padding-left: 75px">
-						<div class="signup-form"><!--sign up form-->
-							<h2>Add New Community</h2>
-							<form action="/communities" method="post">
-								<input type="text" placeholder="Name" name="name"/>
-								<input type="email" placeholder="Admin Email Address" name="admin_email"/>
-								<input type="password" placeholder="Password" name="password"/>
-								<input type ="text" placeholder = "Logo Path" name="img_path"/>
-								<button type="submit" class="btn btn-default" style="margin-bottom: 20px;">Signup</button>
-								<span id="errors_login" style="color: red;">{{ add_comm_error}}</span>
+					<div class="signup-form"><!--sign up form-->
+						<h2>Add New Community</h2>
+						<form action="/communities" method="post" enctype="multipart/form-data">
+							<input type="text" placeholder="Name" name="name"/>
+							<input type="email" placeholder="Admin Email Address" name="admin_email"/>
+							<input type="password" placeholder="Password" name="password"/>
+							<input type="file" name="file">
+							<button type="submit" class="btn btn-default">Signup</button>
+							<span id="errors_login" style="color: red;">{{ add_comm_error}}</span>
 
 							</form>
 						</div><!--/sign up form-->

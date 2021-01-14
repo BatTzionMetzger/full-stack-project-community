@@ -30,7 +30,9 @@ app = Flask(__name__, static_url_path='', static_folder='static', template_folde
 
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
 app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.gif']
-app.config['UPLOAD_PATH'] = 'C://Users//sara leah//Desktop//Excellenteam//course//python//web community//static//images//uploads'
+app.config['UPLOAD_PATH'] = 'C:/Users/sara leah/Desktop/Excellenteam/course/python/web community/static/images/uploads'
+app.config['COM_UPLOAD_PATH'] = 'C:/Users/sara leah/Desktop/Excellenteam/course/python/web community/static/images/community'
+
 
 
 @app.route('/signup', methods = ['POST'])
@@ -58,6 +60,11 @@ def get_main_page(page):
         #     response.set_cookie("user_email", user_email)
         # return response
     if user_email:
+        community_id = user.get_community_id_of_user(user_email)
+        community_path = community.get_path_to_img(community_id)
+        if community_path ==None:
+            community_path = "defolt.png"
+
         community_users_list=user.get_all_user_in_communitiy_of_user(user_email)
         if owner_mail:
             user_items_list=item.get_item_by_owber(owner_mail)
@@ -69,11 +76,12 @@ def get_main_page(page):
         second_item_len = user_owned_len - first_item_len if user_owned_len - first_item_len > 0 else 0
         response = make_response(render_template(page, user_items = user_items_list,
                                 user_owner_products = user_ownered_product, first_len = first_item_len,
-                                second_len = second_item_len,community_users =community_users_list , item_dict=item_dict))
+                                second_len = second_item_len,community_users =community_users_list , item_dict=item_dict,
+                                community_path=community_path))
         response.set_cookie("user_email", user_email)
         response.set_cookie("owner_item",'',expires=0)
         return response
-    return render_template(page, user_items = user_items_list, login_error ="", sign_up_error = "")
+    return render_template(page, user_items = user_items_list, community_path = "defolt.png" , login_error ="", sign_up_error = "")
  
 
 
@@ -115,7 +123,14 @@ def add_community():
     name =  request.form.get("name")
     psd =  request.form.get("password")
     admin_mail =  request.form.get("admin_email")
+    print("admin",admin_mail)
     img_path =  request.form.get("img_path")
+    uploaded_file = request.files['file']
+
+    img_name= "id_"+str(community.get_size_community()+1)+".jpg"
+
+    uploaded_file.save(os.path.join(app.config['COM_UPLOAD_PATH'], img_name))
+
     if name and psd and admin_mail:
         if not is_valid_email(admin_mail):
             return render_template("/addcommunity.html", add_comm_error =  "\nThe email is not valid")
